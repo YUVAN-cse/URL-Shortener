@@ -19,10 +19,6 @@ const urlSchema = new Schema({
     clicks:{
         type:Number,
         default:0,
-    },
-    createdBy :{
-        type:Schema.Types.ObjectId,
-        ref:'User'
     }
 });
 

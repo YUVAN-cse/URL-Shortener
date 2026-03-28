@@ -1,15 +1,12 @@
 # ✂️ URL Shortener
 
-A full-stack URL shortening service with user authentication, built with **Node.js + Express + MongoDB** on the backend and **React** on the frontend.
+A full-stack URL shortening service built with **Node.js + Express + MongoDB** on the backend and **React** on the frontend.
 
 ---
 
 ## 🚀 Features
 
 - 🔗 Shorten any long URL instantly
-- 👤 User registration & login with JWT authentication
-- 🔒 Passwords hashed with bcrypt
-- 🍪 Auth tokens stored in HTTP-only cookies
 - 🗄️ MongoDB persistence via Mongoose
 - ⚡ Unique short codes generated with nanoid
 - 📋 Copy short link to clipboard
@@ -24,9 +21,6 @@ A full-stack URL shortening service with user authentication, built with **Node.
 | `express` v5 | REST API framework |
 | `mongoose` | MongoDB ODM |
 | `nanoid` | Short URL code generation |
-| `bcryptjs` | Password hashing |
-| `jsonwebtoken` | JWT auth tokens |
-| `cookie-parser` | Cookie middleware |
 | `dotenv` | Environment variables |
 | `cors` | Cross-origin requests |
 | `nodemon` | Dev auto-reload |
@@ -78,7 +72,6 @@ Create a `.env` file in the `backend/` directory:
 ```env
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/url-shortener
-JWT_SECRET=your_super_secret_key
 ```
 
 Start the backend:
@@ -97,20 +90,12 @@ npm run dev
 
 ## 🔌 API Endpoints
 
-### Auth
-
-| Method | Route | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/auth/register` | Register a new user | ❌ |
-| `POST` | `/auth/login` | Login and receive JWT cookie | ❌ |
-| `POST` | `/auth/logout` | Clear auth cookie | ✅ |
-
 ### URL Shortener
 
-| Method | Route | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/create/shorturl` | Create a short URL | ✅ |
-| `GET` | `/:shortUrl` | Redirect to original URL | ❌ |
+| Method | Route | Description |
+|---|---|---|
+| `POST` | `/create/shorturl` | Create a short URL |
+| `GET` | `/:shortUrl` | Redirect to original URL |
 
 ### Request & Response Examples
 
@@ -137,23 +122,12 @@ npm run delete    # Run DB reset/seed script (init/init.data.js)
 
 ---
 
-## 🔐 Authentication Flow
-
-1. User registers → password is hashed with `bcryptjs` and stored in MongoDB
-2. User logs in → server validates credentials and signs a `JWT`
-3. JWT is sent back as an **HTTP-only cookie**
-4. All protected routes verify the cookie using `jsonwebtoken`
-5. On logout, the cookie is cleared
-
----
-
 ## 🌱 Environment Variables
 
 | Variable | Description | Example |
 |---|---|---|
 | `PORT` | Server port | `3000` |
 | `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/url-shortener` |
-| `JWT_SECRET` | Secret key for signing JWTs | `mysecretkey123` |
 
 > ⚠️ Never commit your `.env` file. Add it to `.gitignore`.
 
